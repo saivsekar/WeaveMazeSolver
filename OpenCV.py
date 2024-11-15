@@ -18,7 +18,7 @@ image = cv2.imread(image_path, cv2.IMREAD_GRAYSCALE)
 _, binary_image = cv2.threshold(image, 128, 1, cv2.THRESH_BINARY_INV)
 
 # Define the new cell size
-cell_size = 6
+cell_size = 3
 grid_size = (image.shape[0] // cell_size, image.shape[1] // cell_size)  # (26, 26)
 
 # Resize the image to a 26x26 matrix
