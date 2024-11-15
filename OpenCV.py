@@ -15,7 +15,7 @@ image_path = 'maze.png'  # Update this path if necessary
 image = cv2.imread(image_path, cv2.IMREAD_GRAYSCALE)
 
 # Convert to binary image (0 for black, 1 for white)
-_, binary_image = cv2.threshold(image, 128, 1, cv2.THRESH_BINARY)
+_, binary_image = cv2.threshold(image, 128, 1, cv2.THRESH_BINARY_INV)
 
 # Define the new cell size
 cell_size = 6
