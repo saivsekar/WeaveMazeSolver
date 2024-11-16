@@ -25,8 +25,8 @@ grid_size = (image.shape[0] // cell_size, image.shape[1] // cell_size)  # (26, 2
 resized_maze_matrix = cv2.resize(binary_image, grid_size, interpolation=cv2.INTER_AREA)
 
 # Define the pattern to search for and the replacement pattern
-pattern = [1, 0, 1, 1, 1, 0, 1]
-replacement_pattern = [2, 0, 1, 1, 1, 0, 2]
+pattern = [0, 1, 0, 0, 0, 1, 0]
+replacement_pattern = [2, 1, 0, 0, 0, 1, 2]
 
 # Search for the pattern in each row
 for i in range(resized_maze_matrix.shape[0]):
