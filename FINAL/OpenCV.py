@@ -11,7 +11,7 @@ import numpy as np
 import csv
 
 # Load the maze image
-image_path = 'mazetest.png'  # Update this path if necessary
+image_path = 'mazetest.png'  # Update this path if necessary for the demo
 image = cv2.imread(image_path, cv2.IMREAD_GRAYSCALE)
 
 # Convert to binary image (0 for black, 1 for white)
