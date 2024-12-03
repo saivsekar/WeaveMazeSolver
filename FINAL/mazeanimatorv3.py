@@ -6,7 +6,6 @@ Created on Nov 20 22:24:29 2024
 import numpy as np
 import matplotlib.pyplot as plt
 from matplotlib.animation import FuncAnimation
-import pandas as pd
 import ast
 
 # load in solution path
