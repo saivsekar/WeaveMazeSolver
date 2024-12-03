@@ -1,4 +1,4 @@
-#Instructions
+# Instructions
 Inside the OpenCV file, rename filename of the maze.png to whatever your maze image is named.
 Then run 'OpenCV.py'
 Next run pathfinder.py
