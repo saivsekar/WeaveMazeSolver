@@ -12,17 +12,20 @@ import heapq
 import matplotlib.pyplot as plt
 solpath = 0
 
-def heuristic(a, b): # Calculates the Manhattan Distance
-    return abs(a[0] - b[0]) + abs(a[1] - b[1])
+def h_cost(a, b): # Calculates the Manhattan Distance
+    x_distance = abs(a[0] - b[0])
+    y_distance = abs(a[1] - b[1])
+    distance = x_distance + y_distance
+    return distance 
 
 def a_search(start, goal, grid):
 
-    open_set = []
-    heapq.heappush(open_set, (0, start))  # Priority queue
+    queue = []
+    heapq.heappush(queue, (0, start))  # Priority queue
 
-    came_from = {}
+    predecessor = {}
     g = {start: 0} # G function
-    f = {start: heuristic(start, goal)} # F function
+    f = {start: h_cost(start, goal)} # F function
     
     
     underpass = {}
@@ -54,59 +57,72 @@ def a_search(start, goal, grid):
     
     
 
-    while open_set:
-        current = heapq.heappop(open_set)[1]
+    while queue:
+        current = heapq.heappop(queue)[1]
 
         if current == goal:
             # Reconstruct path
             path = []
             
-            while current in came_from:
+            while current in predecessor:
                 path.append(current)
-                current = came_from[current]
+                current = predecessor[current]
             path.append(start)
             return path[::-1]  # Return reversed path
         
         
+        directions = [(-1, 0), (1, 0), (0, -1), (0, 1)] # Neighbors 
+
+        
         if grid[current[0]][current[1]] == 0:
         
         
-            for dy, dx in [(-1, 0), (1, 0), (0, -1), (0, 1)]:  # Neighbors (up, down, left, right)
-                neighbor = (current[0] + dy, current[1] + dx)
+            for y, x in directions:  
+                neighbor = (current[0] + y, current[1] + x)
                 if (0 <= neighbor[0] < grid.shape[0] and 0 <= neighbor[1] < grid.shape[1]):
-                    if grid[neighbor[0]][neighbor[1]] == 0 or grid[neighbor[0]][neighbor[1]] == 2:
+                    if grid[neighbor[0]][neighbor[1]] in (0,2):
                 
                         g_score = g[current] + 1  # Cost to move to neighbor
     
-                        if g_score < g.get(neighbor, float('inf')):
-                            came_from[neighbor] = current
+                        if neighbor in g:
+                            temp_g_score = g[neighbor]
+                        else:
+                            temp_g_score = float('inf')
+                        
+                        if g_score < temp_g_score:
+                            predecessor[neighbor] = current
                             g[neighbor] = g_score
-                            h_score = heuristic(neighbor, goal)
+                            h_score = h_cost(neighbor, goal)
                             f[neighbor] = g_score + h_score
         
-                            if neighbor not in [i[1] for i in open_set]:
-                                heapq.heappush(open_set, (f[neighbor], neighbor))
+                            if neighbor not in [i[1] for i in queue]:
+                                heapq.heappush(queue, (f[neighbor], neighbor))
 
 
         elif grid[current[0]][current[1]] == 2:
             
-            for dy, dx in [(-1, 0), (1, 0), (0, -1), (0, 1),(underpass[current][0] - current[0],underpass[current][1] - current[1])]:  # Neighbrs (up, down, left, right)
-                neighbor = (current[0] + dy, current[1] + dx)
+            for y, x in directions.append((underpass[current][0] - current[0],underpass[current][1] - current[1])):
+                neighbor = (current[0] + y, current[1] + x)
                 
                 if (0 <= neighbor[0] < grid.shape[0] and 0 <= neighbor[1] < grid.shape[1]):
                     
-                    if grid[neighbor[0]][neighbor[1]] == 0 or grid[neighbor[0]][neighbor[1]] == 2:
+                    if grid[neighbor[0]][neighbor[1]] in (0,2):
                 
                         g_score = g[current] + 6  # Cost to move to neighbor
     
-                        if g_score < g.get(neighbor, float('inf')):
-                            came_from[neighbor] = current
+                        if neighbor in g:
+                            temp_g_score = g[neighbor]
+                        else:
+                            temp_g_score = float('inf')
+                        
+                        if g_score < temp_g_score:
+                            predecessor[neighbor] = current
                             g[neighbor] = g_score
-                            h_score = heuristic(neighbor, goal)
+                            h_score = queue(neighbor, goal)
                             f[neighbor] = g_score + h_score
         
-                            if neighbor not in [i[1] for i in open_set]:
-                                heapq.heappush(open_set, (f[neighbor], neighbor))
+                            if neighbor not in [i[1] for i in queue]:
+                                heapq.heappush(queue, (f[neighbor], neighbor))
                             
             
     return [] 
