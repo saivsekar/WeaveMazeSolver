@@ -1,1 +1,4 @@
-
+Have a maze image file titled 'maze.png'
+Then run 'OpenCV.py'
+Next run pathfinder.py
+Finally, run mazeanimatorv3.py and enjoy your animated solution
